@@ -1,0 +1,14 @@
+
+N	java:S106"9Replace this use of System.out or System.err by a logger.(Ã‡ÀŞ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Û®ıúÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(˜ê·­øÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(øµÙ”ûÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(àŞ»ºşÿÿÿÿ
+N	java:S1062"9Replace this use of System.out or System.err by a logger.(·ö•Ü
+S	java:S106B"9Replace this use of System.out or System.err by a logger.(°¬Á™üÿÿÿÿ
+E	java:S108H")Either remove or fill this block of code.(±çëş8æåÆà¾0
+N	java:S106L"9Replace this use of System.out or System.err by a logger.(÷çÜÆ
+N	java:S106R"9Replace this use of System.out or System.err by a logger.(ı–™é
+N	java:S106W"9Replace this use of System.out or System.err by a logger.(²€ˆ‹
+R
+java:S11447"5Remove this unused private "validateFilePath" method.(ÎÂ»8¼ÿÃà¾0
