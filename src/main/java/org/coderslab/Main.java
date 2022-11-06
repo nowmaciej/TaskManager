@@ -1,27 +1,24 @@
 package org.coderslab;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.StringJoiner;
 
 public class Main {
 
-    public static final String DATABASE_FILE = "database.csv";
-
-    public static final String RED = "\033[0;31m";     // RED
-    public static final String GREEN = "\033[0;32m";   // GREEN
-    public static final String RED_UNDERLINED = "\033[4;31m";    // RED
-    public static final String RESET = "\033[0m";  // Text Reset
+    public static final String DATABASE_FILE = "tasks.csv";
 
     public static void main(String[] args) {
         mainMenu();
     }
 
     public static void mainMenu() {
-        System.out.println("Please select an option:");
+        System.out.print(pl.coderslab.ConsoleColors.BLUE+"Please select an option:");
+        System.out.println(pl.coderslab.ConsoleColors.RESET);
         System.out.println("add");
         System.out.println("remove");
         System.out.println("list");
@@ -70,11 +67,24 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Can't load file " + DATABASE_FILE);
         }
+        mainMenu();
     }
 
     private static void removeMenu() {
-        System.out.println("you are in remove");
 
+        Scanner scan = new Scanner(System.in);
+        while (!scan.hasNextInt()) {
+            System.out.print("Select task to be removed [int number]:");
+        }
+
+        int selected = scan.nextInt();
+        Path path = Paths.get(DATABASE_FILE);
+        try (Scanner fileScanner = new Scanner(path)){
+            //tutaj skonczylem <-----------------------------------------------------------------------
+
+        } catch (IOException e) {
+            System.out.println("Can't read file");
+        }
     }
 
     private static void addMenu() {
