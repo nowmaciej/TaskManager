@@ -3,21 +3,39 @@ package org.coderslab;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
     public static final String DATABASE_FILE = "tasks.csv";
+    public static String[][] databaseArray = getDatabase(DATABASE_FILE);
 
     public static void main(String[] args) {
         mainMenu();
     }
 
+    public static String[][] getDatabase(String databaseFileLocation) {
+        String[][] arrayMadeFromDatabaseFile = new String[0][3];
+        File file = new File(databaseFileLocation);
+
+        try(Scanner fs = new Scanner(file)) {
+            while (fs.hasNextLine()) {
+                arrayMadeFromDatabaseFile = Arrays.copyOf(arrayMadeFromDatabaseFile, arrayMadeFromDatabaseFile.length + 1);
+                arrayMadeFromDatabaseFile[arrayMadeFromDatabaseFile.length - 1] = fs.nextLine().split(",");
+            }
+        } catch (Exception e) {
+            System.out.println("Can't read database file");
+        }
+
+        return arrayMadeFromDatabaseFile;
+    }
+
+
     public static void mainMenu() {
-        System.out.print(pl.coderslab.ConsoleColors.BLUE+"Please select an option:");
+        System.out.print(pl.coderslab.ConsoleColors.BLUE + "Please select an option:");
         System.out.println(pl.coderslab.ConsoleColors.RESET);
         System.out.println("add");
         System.out.println("remove");
@@ -56,59 +74,33 @@ public class Main {
     }
 
     private static void listMenu() {
-        File dbFile = new File(DATABASE_FILE);
 
-        try (Scanner scan = new Scanner(dbFile)) {
-            int i = 0;
-            while (scan.hasNextLine()) {
-                System.out.println(i + ": " + scan.nextLine());
-                i++;
-            }
-        } catch (IOException e) {
-            System.out.println("Can't load file " + DATABASE_FILE);
+        for(int i = 0; i<databaseArray.length; i++) {
+            System.out.print(i+" : ");
+            System.out.println(Arrays.toString(databaseArray[i]));
         }
+
         mainMenu();
     }
 
     private static void removeMenu() {
 
-        Scanner scan = new Scanner(System.in);
-        while (!scan.hasNextInt()) {
-            System.out.print("Select task to be removed [int number]:");
-        }
-
-        int selected = scan.nextInt();
-        Path path = Paths.get(DATABASE_FILE);
-        try (Scanner fileScanner = new Scanner(path)){
-            //tutaj skonczylem <-----------------------------------------------------------------------
-
-        } catch (IOException e) {
-            System.out.println("Can't read file");
-        }
     }
 
     private static void addMenu() {
-        try (FileWriter fw = new FileWriter(DATABASE_FILE, true)) {
+        Scanner scan = new Scanner(System.in);
+        StringBuilder newTask = new StringBuilder();
 
-            Scanner scan = new Scanner(System.in);
+        System.out.println("Now adding task to database");
+        System.out.print("Enter task name: ");
+        newTask.append(scan.nextLine() + ", ");
+        System.out.print("Enter task date [yyyy-mm-dd]: ");
+        newTask.append(scan.nextLine() + ", ");
+        System.out.print("Enter task status [true/false]: ");
+        newTask.append(scan.nextLine());
 
-            System.out.println("Now adding task to database");
-            System.out.print("Enter task name: ");
-            String taskName = scan.nextLine();
-            System.out.print("Enter task date [yyyy-mm-dd]: ");
-            String taskDate = scan.nextLine();
-            System.out.print("Enter task status [true/false]: ");
-            boolean taskStatus = scan.nextBoolean();
-
-
-            String newLine = taskName + ", " + taskDate + ", " + taskStatus;
-            fw.append(newLine + "\n");
-
-            System.out.println("Added new task: " + newLine);
-
-        } catch (IOException e) {
-            System.out.println("File " + DATABASE_FILE + " not found!");
-        }
+        databaseArray = Arrays.copyOf(databaseArray, databaseArray.length + 1);
+        databaseArray[databaseArray.length - 1] = newTask.toString().split(",");
 
         mainMenu();
 
